@@ -12,7 +12,16 @@ iframe{position:fixed;inset:0;width:100%;height:100%;height:100dvh;border:0;disp
 </style>
 </head>
 <body>
-<iframe src="https://script.google.com/macros/s/AKfycbwyGKp0gv5KWRjVnVjCO1vmDkJUJFzC8-KnASW_rQEY2wsvCAhuK8uc9_4YV84BKxeRDg/exec?embed=1"
-  title="DIDI BOX" allow="camera; clipboard-write; fullscreen" allowfullscreen></iframe>
+<iframe id="app" title="DIDI BOX" allow="camera; clipboard-write; fullscreen" allowfullscreen></iframe>
+<script>
+(function () {
+  var EXEC = 'https://script.google.com/macros/s/AKfycbwyGKp0gv5KWRjVnVjCO1vmDkJUJFzC8-KnASW_rQEY2wsvCAhuK8uc9_4YV84BKxeRDg/exec';
+  var p = new URLSearchParams(location.search), src = EXEC + '?embed=1&ext=1';
+  ['code', 'state', 'error'].forEach(function (k) { var v = p.get(k); if (v) src += '&' + k + '=' + encodeURIComponent(v); });
+  document.getElementById('app').src = src;
+  // Google 登入帶回來的參數用完就從網址拿掉（重新整理才不會再用一次）
+  if (location.search) history.replaceState(null, '', location.pathname);
+})();
+</script>
 </body>
 </html>
