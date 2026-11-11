@@ -18,9 +18,12 @@ iframe{position:fixed;inset:0;width:100%;height:100%;height:100dvh;border:0;disp
   var EXEC = 'https://script.google.com/macros/s/AKfycbwyGKp0gv5KWRjVnVjCO1vmDkJUJFzC8-KnASW_rQEY2wsvCAhuK8uc9_4YV84BKxeRDg/exec';
   var p = new URLSearchParams(location.search), src = EXEC + '?embed=1&ext=1';
   ['code', 'state', 'error'].forEach(function (k) { var v = p.get(k); if (v) src += '&' + k + '=' + encodeURIComponent(v); });
+  // 費用核銷單：員工填單（x）、簽核（s）、出納（c）連結
+  var link = ['x', 's', 'c'].filter(function (k) { return p.get(k); })[0];
+  if (link) src += '&' + link + '=' + encodeURIComponent(p.get(link));
   document.getElementById('app').src = src;
-  // Google 登入帶回來的參數用完就從網址拿掉（重新整理才不會再用一次）
-  if (location.search) history.replaceState(null, '', location.pathname);
+  // Google 登入帶回來的參數用完就從網址拿掉（重新整理才不會再用一次）；核銷單連結要留著，重新整理才打得開
+  if (location.search && !link) history.replaceState(null, '', location.pathname);
 })();
 </script>
 </body>
