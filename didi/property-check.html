@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>砥砥 DiDi｜財產健檢｜1 分鐘看懂店裡的設備帳</title>
+<meta name="description" content="回答 7 個問題，砥砥馬上告訴你哪裡做得好、哪裡可以加強。不用填任何金額，全部是選擇題。">
+<meta property="og:title" content="砥砥 DiDi｜財產健檢｜1 分鐘看懂店裡的設備帳">
+<meta property="og:description" content="回答 7 個問題，砥砥馬上告訴你哪裡做得好、哪裡可以加強。">
+<meta property="og:image" content="https://storage.tally.so/15f08a0e-2e7d-45c5-81b5-8850ad848696/3b6b2e92-3fc7-4435-8cf2-8c1308ee2669.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="wrap" id="app"></main>
+<script src="quiz.js"></script>
+<script>
+(function () {
+  var L = DIDI.LINE_ADD;
+  var improve = [
+    ['先列一張清單', '品名、型號、購買日期、金額、放在哪、誰在用，都記下來。'],
+    ['大設備不要一次全算在當月', '能用 2 年以上、又超過 8 萬的設備，要列財產分年攤；一次買一大批的器具，就算每件不到 8 萬，也可能要列財產。不確定可以問你的記帳士。'],
+    ['裝潢也要分年攤', '裝潢通常是開店最大筆的支出，金額大的要列資產分年攤，不要一次算在開店那個月。不確定可以問你的記帳士。'],
+    ['發票、保固卡集中收好', '每台設備一個封套，或拍照存檔，順便記下保固到期日，壞了才知道還能不能免費修。'],
+    ['修理要分「修回原樣」和「升級」', '一般維修通常當費用；升級提高效能、超過 2 年又超過 8 萬，要加進財產一起提折舊。同一台設備的修理費記在一起，修太多次就知道該換了。'],
+    ['每年對一次現場', '拿清單對一遍實物。壞掉、丟掉、賣掉或送人的設備，清單和帳都要跟著更新；員工離職或借出時，也對一下設備還在不在。'],
+    ['先分清楚哪些是店的', '店的才列進財產清單，個人的不要算進店的帳；兩邊共用的要講清楚怎麼算。']
+  ];
+  var good = [
+    '設備有清單，放哪、誰在用都清楚，不怕東西不見',
+    '大設備有分年提折舊，每個月的獲利看得比較準',
+    '裝潢有分年攤，開店那個月的帳不會失真',
+    '單據都收得好，入帳和之後修理都找得到依據',
+    '修理有分一般維修和升級，帳記得很清楚',
+    '有定期盤點，帳和現場對得起來',
+    '個人和店的東西分得清楚，帳才看得出店真正的狀況'
+  ];
+  runQuiz({
+    title: '砥砥 DiDi｜財產健檢｜1 分鐘看懂店裡的設備帳',
+    shortName: '財產健檢',
+    introHtml: '<p>發票有留，為什麼設備還是找不到、帳還是對不起來？<br>回答 7 個問題，砥砥馬上告訴你哪裡做得好、哪裡可以加強。<br>不用填任何金額，全部是選擇題。</p>',
+    separateIntro: false,
+    separateHelp: false,
+    questions: [
+      { q: '店裡的大設備，有列清單，而且記了放在哪、誰在用嗎？', opts: ['有清單，放哪、誰在用都有記', '有清單，但沒記放哪、誰在用', '沒有清單'] },
+      { q: '花十幾萬買的大設備，帳上是怎麼記的？', opts: ['列成財產，分年提折舊', '不確定，都交給記帳士', '當月全部當費用'] },
+      { q: '開店的裝潢費用，帳上是怎麼記的？', opts: ['列成資產，分年攤', '不確定，都交給記帳士', '當月全部當費用'] },
+      { q: '買設備的發票、保固卡，有收好嗎？', opts: ['都有收好，馬上找得到', '有收，但要找很久', '沒收／不見了'] },
+      { q: '設備修理的費用，有分「一般維修」和「升級」嗎？', opts: ['有分，單據也都留著', '有記，但沒有分', '沒有記'] },
+      { q: '清單上的設備，現在都還在店裡嗎？', opts: ['都在，而且有定期盤點', '應該都在，但沒有盤點過', '有些已經壞掉、丟掉、賣掉或送人，但清單和帳沒改'] },
+      { q: '老闆自己的車、手機、電腦，和店的財產有分清楚嗎？', opts: ['分清楚，也有記錄', '大概分得出來', '混在一起'] }
+    ],
+    scoreLabel: '你的財產健檢結果：',
+    tiers: [
+      { min: 12, max: 14, name: '穩穩的', html: '<p><strong>🟢 穩穩的</strong><br>你的設備帳管得很好！繼續保持，每年記得盤點一次就好。</p>' },
+      { min: 7, max: 11, name: '要注意', html: '<p><strong>🟡 要注意</strong><br>大方向沒問題，但有幾個地方容易出狀況。先處理下面「可以加強」的地方，之後的帳會輕鬆很多。</p>' },
+      { min: 0, max: 6, name: '該處理了', html: '<p><strong>🔴 該處理了</strong><br>設備帳目前比較亂，可能會讓你看錯自己賺多少。別擔心，從下面第一個提醒開始，一項一項來。</p>' }
+    ],
+    goodHeading: '✔️ 你做得好的地方',
+    goodHtml: function (i) { return '<p>・' + good[i] + '</p>'; },
+    improveHeading: '⚠️ 可以加強的地方',
+    improveHtml: function (i) { return '<p class="improve"><strong>第 ' + (i + 1) + ' 題｜' + improve[i][0] + '</strong><br>' + improve[i][1] + '</p>'; },
+    topic: improve.map(function (x) { return x[0]; }),
+    disclaimer: '※ 健檢結果僅供參考，實際帳務與稅務處理，請以你的記帳士或會計師建議為準。',
+    helpQ: '需要砥砥幫你一起整理嗎？',
+    helpOpts: ['需要', '先不用'],
+    contactTopHtml: '<p><strong>謝謝你！砥砥會再跟你聯絡 🏔</strong></p>',
+    contactLineHtml: '<p>按下面的按鈕，會打開砥砥的 LINE，並自動帶入你的健檢結果，按「傳送」砥砥就收到了。</p>',
+    privacy: '※ 網頁不會保存你填的任何資料；只有你在 LINE 按下傳送，砥砥才會收到。',
+    endYesHtml: '<p><strong>收到囉！謝謝你做完財產健檢 🏔</strong><br>砥砥是一座山，是老闆的靠山。</p>' +
+      '<p class="muted">如果 LINE 沒有自動打開，可以直接加砥砥的 LINE 官方帳號：<a href="' + L + '" target="_blank" rel="noopener">' + L + '</a></p>',
+    endNoHtml: '<p><strong>收到囉！謝謝你做完財產健檢 🏔</strong><br>砥砥是一座山，是老闆的靠山。</p>' +
+      '<p>之後如果需要幫忙整理，隨時可以加砥砥的 LINE 官方帳號：<a href="' + L + '" target="_blank" rel="noopener">' + L + '</a></p>'
+  });
+})();
+</script>
+</body>
+</html>

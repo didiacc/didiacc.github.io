@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>砥砥 DiDi｜委外需求諮詢單</title>
+<meta name="description" content="填寫委外需求，砥砥會依實際工作內容、資料量及配合方式進行初步評估，並與您聯繫討論適合的合作方案。">
+<meta property="og:title" content="砥砥 DiDi｜委外需求諮詢單">
+<meta property="og:description" content="填寫委外需求，砥砥會依實際工作內容、資料量及配合方式進行初步評估。">
+<meta property="og:image" content="https://storage.tally.so/15f08a0e-2e7d-45c5-81b5-8850ad848696/3b6b2e92-3fc7-4435-8cf2-8c1308ee2669.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="wrap" id="app">
+  <img class="logo" id="logo" alt="砥砥 DiDi">
+
+  <section id="form">
+    <h1>砥砥 DiDi｜委外需求諮詢單</h1>
+    <p>歡迎填寫以下需求，將依實際工作內容、資料量及配合方式進行初步評估，並與您聯繫討論適合的合作方案。<br>本表單僅供需求諮詢，填寫後不代表正式委託或成立合作關係。</p>
+
+    <div class="q" id="q-name">
+      <label class="q-title" for="name">▍請問方便怎麼稱呼您？<span class="req">*</span></label>
+      <input type="text" id="name" autocomplete="name">
+      <p class="err" hidden>請填寫稱呼</p>
+    </div>
+
+    <div id="rest" hidden>
+      <p class="section">▍服務需求</p>
+
+      <div class="q">
+        <label class="q-title" for="problem">01｜目前最想解決的問題是什麼？</label>
+        <p class="hint">例如：每個月對帳要花好幾天、不清楚公司到底有沒有賺錢</p>
+        <textarea id="problem"></textarea>
+      </div>
+
+      <fieldset class="q" id="q-svc">
+        <legend>02｜您需要哪一類服務？（可複選）<span class="req">*</span></legend>
+        <div id="svc"></div>
+        <p class="err" hidden>請至少選一項</p>
+      </fieldset>
+
+      <div id="details"></div>
+
+      <p class="section">▍公司基本資料</p>
+
+      <div class="q">
+        <label class="q-title" for="biz">01｜目前的公司或營業登記型態為何？（單選）</label>
+        <select id="biz">
+          <option value="">請選擇</option>
+          <option>行號／商業登記（小規模營業人）</option>
+          <option>行號／商業登記（使用統一發票）</option>
+          <option>行號／商業登記（不清楚稅務身分）</option>
+          <option>有限公司</option>
+          <option>股份有限公司</option>
+          <option>尚未設立／籌備中</option>
+          <option>其他</option>
+        </select>
+      </div>
+
+      <div class="q">
+        <label class="q-title" for="industry">02｜目前主要經營哪一種產業？</label>
+        <input type="text" id="industry" placeholder="例如：餐飲、電商、貿易、工程">
+      </div>
+
+      <div class="q">
+        <label class="q-title" for="cpa">03｜目前是否有配合的會計師或記帳士事務所？</label>
+        <select id="cpa">
+          <option value="">請選擇</option>
+          <option>有</option>
+          <option>沒有</option>
+        </select>
+      </div>
+
+      <p class="section">▍合作需求</p>
+      <p>線上就能完成，資料交接很簡單：<br>・手機拍照、電腦上傳，單據隨時傳給砥砥<br>・紙本資料可郵寄交接<br>・臺北／新北／桃園可安排定期到場<br>※ 郵寄、交通及額外到場費用另計，由委託方負擔</p>
+
+      <div class="q">
+        <label class="q-title" for="budget">01｜您預計的委外服務預算為何？</label>
+        <input type="text" id="budget">
+        <p class="hint" style="margin-top:6px">可填寫預算金額或區間；若尚未確定，可留白，由砥砥依需求評估報價。</p>
+      </div>
+
+      <p class="section">▍聯絡資訊</p>
+
+      <fieldset class="q" id="q-next">
+        <legend>01｜接下來您希望怎麼進行？（單選）<span class="req">*</span></legend>
+        <label class="opt"><input type="radio" name="next" value="願意花 15 分鐘聊聊，了解狀況後再報價"><span class="key">A</span><span>願意花 15 分鐘聊聊，了解狀況後再報價</span></label>
+        <label class="opt"><input type="radio" name="next" value="想先知道大概的價格範圍"><span class="key">B</span><span>想先知道大概的價格範圍</span></label>
+        <p class="err" hidden>請選一個答案</p>
+      </fieldset>
+
+      <div class="q">
+        <label class="q-title" for="more">02｜還有其他希望補充或說明的事項嗎？</label>
+        <textarea id="more" placeholder="例如：目前遇到的問題、特殊工作需求，或其他希望砥砥協助的事項。簡單描述即可，沒有可留白。"></textarea>
+      </div>
+
+      <fieldset class="q" id="q-ok">
+        <legend>03｜個人資料蒐集告知與同意<span class="req">*</span></legend>
+        <p class="muted">本表單蒐集您提供的稱呼及服務需求等資訊，僅供砥砥 DiDi 進行需求評估、報價及後續聯繫使用。<br>網頁本身不會保存您填寫的內容；按下送出後，內容會帶入 LINE 對話框，由您確認並傳送給砥砥 DiDi 官方帳號後，由砥砥 DiDi 進行管理。您可依個人資料保護法行使查詢、閱覽、更正、停止利用或刪除等權利。<br>如有相關需求，請透過 LINE 官方帳號與砥砥 DiDi 聯繫。<br>您可自由選擇是否提供資料；若未傳送訊息，砥砥 DiDi 將無法收到您的諮詢。</p>
+        <label class="opt"><input type="checkbox" id="ok"><span class="box"></span><span>我已閱讀並了解上述個人資料蒐集告知事項。</span></label>
+        <p class="err" hidden>請勾選同意</p>
+      </fieldset>
+
+      <div class="actions"><a class="btn wide" id="send" href="#" target="_blank" rel="noopener">用 LINE 傳給砥砥</a></div>
+      <p class="muted" style="margin-top:12px">按下後會打開砥砥的 LINE，並自動帶入您填寫的內容，按「傳送」砥砥就收到了。</p>
+    </div>
+  </section>
+
+  <section id="thanks" hidden>
+    <p><strong>感謝您的填寫！</strong></p>
+    <p><strong>在 LINE 按下「傳送」，砥砥就會收到您的需求單，我們會盡快在 LINE 回覆您。</strong></p>
+    <p class="muted">如果 LINE 沒有自動打開，或內容沒有帶進去，可以先複製下面的內容，再貼到砥砥的 LINE：</p>
+    <textarea class="copybox" id="copy" readonly rows="8"></textarea>
+    <div class="actions" style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap">
+      <button class="btn ghost" id="copybtn" type="button">複製內容</button>
+      <a class="btn" id="again" href="#" target="_blank" rel="noopener">再開一次 LINE</a>
+    </div>
+    <p style="margin-top:24px">→ <a id="add" target="_blank" rel="noopener">加入砥砥 DiDi 官方帳號</a></p>
+    <a id="qrlink" target="_blank" rel="noopener"><img class="qr" id="qr" alt="砥砥 DiDi LINE 官方帳號 QR Code"></a>
+  </section>
+</main>
+
+<script src="quiz.js"></script>
+<script>
+(function () {
+  var D = window.DIDI, esc = D.esc;
+  document.getElementById('logo').src = D.LOGO;
+  document.getElementById('add').href = D.LINE_ADD;
+  document.getElementById('qrlink').href = D.LINE_ADD;
+  document.getElementById('qr').src = D.QR;
+
+  var services = [
+    { name: '帳務整理（流水帳／內帳、財務報表）', title: '帳務整理｜目前帳務的狀況和需求', hint: '可以簡單寫寫：每月大約有多少單據、想從報表看到什麼（例如每月賺賠、各產品毛利、現金進出）', ph: '例如：每月約 100 張單據，想知道每月到底有沒有賺錢' },
+    { name: '薪資計算', title: '薪資｜目前薪資的狀況和需求', hint: '可以簡單寫寫：員工人數', ph: '例如：10 人（正職、兼職）' },
+    { name: '出納付款', title: '出納｜目前付款的狀況和需求', hint: '可以簡單寫寫：每月大約幾筆付款、有幾個銀行帳戶、目前怎麼整理付款資料', ph: '例如：每月約 30 筆廠商付款，兩個銀行帳戶，目前都是老闆自己整理' },
+    { name: '庫存管理', title: '庫存管理｜目前庫存的狀況和需求', hint: '可以簡單寫寫：商品大約多少品項、有沒有多個倉庫或門市、目前怎麼記庫存', ph: '例如：約 200 個品項，一個倉庫，目前只有手寫紀錄' },
+    { name: '財產管理', title: '財產管理｜目前財產的狀況和需求', hint: '可以簡單寫寫：公司大約有多少財產需要整理（例如電腦、設備、辦公家具、生財器具）、目前有沒有財產清單', ph: '例如：電腦和設備大約 50 件，目前沒有清單，想整理一份' },
+    { name: '其他（例如客製化表格、流程建置）', title: '其他｜想處理的事情', hint: '可以簡單寫寫：想解決什麼問題、希望做成什麼樣子（例如表格、流程、報表）', ph: '例如：想做一份請款表格，讓員工填寫後方便老闆審核' }
+  ];
+
+  var svc = document.getElementById('svc'), details = document.getElementById('details');
+  services.forEach(function (s, i) {
+    svc.insertAdjacentHTML('beforeend', '<label class="opt"><input type="checkbox" value="' + i + '"><span class="box"></span><span>' + esc(s.name) + '</span></label>');
+    details.insertAdjacentHTML('beforeend', '<div class="q" id="d' + i + '" hidden><label class="q-title" for="dt' + i + '">' + esc(s.title) + '</label><p class="hint">' + esc(s.hint) + '</p><textarea id="dt' + i + '" placeholder="' + esc(s.ph) + '"></textarea></div>');
+  });
+
+  var $ = function (id) { return document.getElementById(id); };
+  var name = $('name');
+  name.addEventListener('input', function () {
+    if (name.value.trim()) { $('rest').hidden = false; clearErr('q-name'); }
+  });
+
+  document.querySelectorAll('.opt input').forEach(function (inp) {
+    inp.addEventListener('change', function () {
+      if (inp.type === 'radio') {
+        inp.closest('.q').querySelectorAll('.opt').forEach(function (l) { l.classList.remove('on'); });
+      }
+      inp.closest('.opt').classList.toggle('on', inp.checked);
+      var q = inp.closest('.q');
+      if (q && q.querySelector('input:checked')) clearErr(q.id);
+      if (inp.closest('#svc')) $('d' + inp.value).hidden = !inp.checked;
+    });
+  });
+
+  function clearErr(id) { var q = $(id); if (!q) return; q.classList.remove('bad'); q.querySelector('.err').hidden = true; }
+  function setErr(id) { var q = $(id); q.classList.add('bad'); q.querySelector('.err').hidden = false; return q; }
+
+  function picked() { return [].slice.call(svc.querySelectorAll('input:checked')).map(function (x) { return +x.value; }); }
+
+  function message() {
+    var v = function (id) { return $(id).value.trim(); };
+    var m = ['你好，我想諮詢委外服務（需求單）', '稱呼：' + v('name')];
+    if (v('problem')) m.push('目前最想解決的問題：' + v('problem'));
+    var p = picked();
+    m.push('需要的服務：' + p.map(function (i) { return services[i].name; }).join('、'));
+    p.forEach(function (i) { var t = v('dt' + i); if (t) m.push('・' + services[i].title.split('｜')[0] + '：' + t); });
+    if (v('biz')) m.push('登記型態：' + v('biz'));
+    if (v('industry')) m.push('產業：' + v('industry'));
+    if (v('cpa')) m.push('配合的會計師或記帳士：' + v('cpa'));
+    if (v('budget')) m.push('預算：' + v('budget'));
+    var n = document.querySelector('input[name=next]:checked');
+    if (n) m.push('接下來希望：' + n.value);
+    if (v('more')) m.push('補充：' + v('more'));
+    return m.join('\n');
+  }
+
+  $('send').addEventListener('click', function (e) {
+    var bad = [];
+    if (!name.value.trim()) { $('rest').hidden = false; bad.push(setErr('q-name')); }
+    if (!picked().length) bad.push(setErr('q-svc'));
+    if (!document.querySelector('input[name=next]:checked')) bad.push(setErr('q-next'));
+    if (!$('ok').checked) bad.push(setErr('q-ok'));
+    if (bad.length) {
+      e.preventDefault();
+      bad[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    var msg = message();
+    var url = D.LINE_MSG(msg);
+    this.href = url;
+    $('copy').value = msg;
+    $('again').href = url;
+    setTimeout(function () {
+      $('form').hidden = true;
+      $('thanks').hidden = false;
+      window.scrollTo(0, 0);
+    }, 300);
+  });
+
+  $('copybtn').addEventListener('click', function () {
+    var t = $('copy'), b = this;
+    t.select();
+    var done = function () { b.textContent = '已複製'; setTimeout(function () { b.textContent = '複製內容'; }, 2000); };
+    if (navigator.clipboard) navigator.clipboard.writeText(t.value).then(done, function () { document.execCommand('copy'); done(); });
+    else { document.execCommand('copy'); done(); }
+  });
+})();
+</script>
+</body>
+</html>

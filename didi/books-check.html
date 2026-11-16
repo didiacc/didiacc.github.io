@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>砥砥DiDi｜帳務健檢</title>
+<meta name="description" content="7 題選擇題，1 分鐘填完。填完馬上看結果，知道你的帳哪裡做得好、哪裡要加強。">
+<meta property="og:title" content="砥砥DiDi｜帳務健檢">
+<meta property="og:description" content="7 題選擇題，1 分鐘填完。填完馬上看結果，知道你的帳哪裡做得好、哪裡要加強。">
+<meta property="og:image" content="https://storage.tally.so/15f08a0e-2e7d-45c5-81b5-8850ad848696/3b6b2e92-3fc7-4435-8cf2-8c1308ee2669.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="wrap" id="app"></main>
+<script src="quiz.js"></script>
+<script>
+(function () {
+  var L = DIDI.LINE_ADD;
+  var good = [
+    '店裡和自己的錢分開，帳會清楚很多',
+    '每筆都記，月底整理會輕鬆很多',
+    '有記錄又會追，錢比較不會收不回來',
+    '單據固定整理，要找的時候馬上找得到',
+    '付款清楚，不會漏付也不會重複付',
+    '帳和存摺對得起來，代表帳記得很確實',
+    '有收支表又會看，經營更有方向'
+  ];
+  var bad = [
+    '錢混在一起，很難知道店裡真正賺多少。建議另開一個店專用帳戶',
+    '小筆支出累積起來也很可觀，建議每一筆都記下來',
+    '客人欠款沒記錄，很容易忘記收。建議列一張待收款清單',
+    '單據放太久容易遺失、褪色。建議至少每個月整理一次',
+    '付款不清楚，容易漏付或重複付。建議列一張待付款清單',
+    '對不起來代表有漏記或記錯。建議每個月對一次存摺',
+    '沒有收支表，很難判斷這個月有沒有賺。建議每月整理一張簡單的收支表'
+  ];
+  runQuiz({
+    title: '砥砥DiDi｜帳務健檢',
+    shortName: '帳務健檢',
+    introHtml: '<p>7 題選擇題，1 分鐘填完。<br>填完馬上看結果，知道你的帳哪裡做得好、哪裡要加強。</p>',
+    separateIntro: true,
+    separateHelp: true,
+    questions: [
+      { q: '店裡的錢和自己的錢，有分開帳戶嗎？', opts: ['有分開，很少混用', '有分開，但常常混用', '沒有分開'] },
+      { q: '店裡的收入和支出，會每一筆都記下來嗎？', opts: ['每一筆都會記', '金額大的才記', '幾乎沒有記'] },
+      { q: '客人還沒付的錢，有記下來、也會去追嗎？', opts: ['有記錄，也會固定追', '大概記得，想到才追', '沒有記，常常忘記'] },
+      { q: '發票、收據多久整理一次？', opts: ['每週或每個月整理', '幾個月整理一次', '要交資料前才整理'] },
+      { q: '要付給廠商的錢，清楚哪些付了、哪些還沒付嗎？', opts: ['很清楚，有記錄', '大概知道', '常常搞不清楚'] },
+      { q: '月底的帳，跟銀行存摺對得起來嗎？', opts: ['每個月都有對，對得起來', '有對，但常常對不起來', '從來沒有對過'] },
+      { q: '每個月有一份自己看得懂的收支表嗎？', opts: ['有，而且會拿來看', '有，但看不太懂或很少看', '沒有'] }
+    ],
+    scoreLabel: '你的帳務健檢結果：',
+    tiers: [
+      { min: 12, max: 14, name: '', html: '<p><strong>你的帳很有條理！繼續保持，每個月花一點時間檢查就好 ✔️</strong></p>' },
+      { min: 7, max: 11, name: '', html: '<p><strong>基礎已經有了，有幾個地方再加強，帳會更清楚 ⚠️</strong></p>' },
+      { min: 0, max: 6, name: '', html: '<p><strong>帳有點亂沒關係，先從「店裡和自己的錢分開」開始，一步一步整理 ⚠️</strong></p>' }
+    ],
+    goodHeading: '',
+    goodHtml: function (i) { return '<p>✔️ ' + good[i] + '</p>'; },
+    improveHeading: '',
+    improveHtml: function (i) { return '<p>⚠️ ' + bad[i] + '</p>'; },
+    topic: null,
+    disclaimer: '※ 健檢結果僅供參考，實際帳務與稅務處理，請以你的記帳士或會計師建議為準。',
+    helpQ: '需要砥砥幫你一起整理嗎？',
+    helpOpts: ['需要', '先不用，謝謝'],
+    contactTopHtml: '',
+    pick: {
+      q: '你最想先處理哪一塊？（可複選）',
+      opts: ['單據、發票整理', '收入和支出對不起來', '店裡和自己的錢分開', '客人欠款、廠商付款', '看懂每個月賺多少']
+    },
+    contactLineHtml: '<p style="margin-top:28px"><strong>加入砥砥 LINE 官方帳號：</strong><br>按下面的按鈕，會打開砥砥的 LINE，並自動帶入你的健檢結果和想處理的項目，按「傳送」砥砥就收到了。</p>',
+    privacy: '※ 網頁不會保存你填的任何資料；只有你在 LINE 按下傳送，砥砥才會收到。',
+    endYesHtml: '<p><strong>謝謝你！砥砥收到後會盡快聯絡你 ⛰️</strong><br>帳務有條理，經營更專注。</p>' +
+      '<p class="muted">如果 LINE 沒有自動打開，可以直接加砥砥的 LINE 官方帳號：<a href="' + L + '" target="_blank" rel="noopener">' + L + '</a></p>',
+    endNoHtml: '<p><strong>謝謝你完成帳務健檢！有需要隨時<a href="' + L + '" target="_blank" rel="noopener">私訊砥砥</a> ⛰️</strong></p>'
+  });
+})();
+</script>
+</body>
+</html>
