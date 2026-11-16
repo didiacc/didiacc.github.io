@@ -94,9 +94,15 @@
         <textarea id="more" placeholder="例如：目前遇到的問題、特殊工作需求，或其他希望砥砥協助的事項。簡單描述即可，沒有可留白。"></textarea>
       </div>
 
+      <div class="q">
+        <label class="q-title" for="lineid">03｜您的 LINE ID（選填）</label>
+        <p class="hint">留下 LINE ID，萬一訊息沒有傳成功，砥砥也能主動聯絡您。</p>
+        <input type="text" id="lineid" autocomplete="off">
+      </div>
+
       <fieldset class="q" id="q-ok">
-        <legend>03｜個人資料蒐集告知與同意<span class="req">*</span></legend>
-        <p class="muted">本表單蒐集您提供的稱呼及服務需求等資訊，僅供砥砥 DiDi 進行需求評估、報價及後續聯繫使用。<br>網頁本身不會保存您填寫的內容；按下送出後，內容會帶入 LINE 對話框，由您確認並傳送給砥砥 DiDi 官方帳號後，由砥砥 DiDi 進行管理。您可依個人資料保護法行使查詢、閱覽、更正、停止利用或刪除等權利。<br>如有相關需求，請透過 LINE 官方帳號與砥砥 DiDi 聯繫。<br>您可自由選擇是否提供資料；若未傳送訊息，砥砥 DiDi 將無法收到您的諮詢。</p>
+        <legend>04｜個人資料蒐集告知與同意<span class="req">*</span></legend>
+        <p class="muted">本表單蒐集您提供的稱呼、LINE ID 及服務需求等資訊，僅供砥砥 DiDi 進行需求評估、報價及後續聯繫使用。<br>按下送出後，您填寫的內容會記錄在砥砥 DiDi 的 Google 試算表，並帶入 LINE 對話框，由您確認後傳送給砥砥 DiDi 官方帳號；資料由砥砥 DiDi 進行管理。您可依個人資料保護法行使查詢、閱覽、更正、停止利用或刪除等權利。<br>如有相關需求，請透過 LINE 官方帳號與砥砥 DiDi 聯繫。<br>您可自由選擇是否提供資料；若未提供必要的聯絡資訊，砥砥 DiDi 可能無法回覆您的諮詢。</p>
         <label class="opt"><input type="checkbox" id="ok"><span class="box"></span><span>我已閱讀並了解上述個人資料蒐集告知事項。</span></label>
         <p class="err" hidden>請勾選同意</p>
       </fieldset>
@@ -170,6 +176,7 @@
   function message() {
     var v = function (id) { return $(id).value.trim(); };
     var m = ['你好，我想諮詢委外服務（需求單）', '稱呼：' + v('name')];
+    if (v('lineid')) m.push('LINE ID：' + v('lineid'));
     if (v('problem')) m.push('目前最想解決的問題：' + v('problem'));
     var p = picked();
     m.push('需要的服務：' + p.map(function (i) { return services[i].name; }).join('、'));
@@ -196,6 +203,23 @@
       return;
     }
     var msg = message();
+    var val = function (id) { return $(id).value.trim(); };
+    var n = document.querySelector('input[name=next]:checked');
+    D.record({
+      type: 'request',
+      name: val('name'),
+      lineId: val('lineid'),
+      problem: val('problem'),
+      services: picked().map(function (i) { return services[i].name; }),
+      details: services.map(function (s, i) { return $('d' + i).hidden ? '' : val('dt' + i); }),
+      biz: val('biz'),
+      industry: val('industry'),
+      cpa: val('cpa'),
+      budget: val('budget'),
+      next: n ? n.value : '',
+      more: val('more'),
+      text: msg
+    }, true);
     var url = D.LINE_MSG(msg);
     this.href = url;
     $('copy').value = msg;

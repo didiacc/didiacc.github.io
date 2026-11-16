@@ -5,6 +5,17 @@
   var LOGO = 'https://storage.tally.so/15f08a0e-2e7d-45c5-81b5-8850ad848696/3b6b2e92-3fc7-4435-8cf2-8c1308ee2669.png';
   var QR = 'line-qr.png';
   var KEYS = ['A', 'B', 'C', 'D', 'E', 'F'];
+  // 接收資料的 Google Apps Script 網址（存進砥砥的 Google 試算表）
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbw3Sv8id1IDKsqpl6Y_P-MRlDHVlYlP4ji1UQlBMEp58OIh-pplxKMOgIwezDkdiIPNuA/exec';
+
+  function record(data, beacon) {
+    if (!ENDPOINT) return;
+    var body = JSON.stringify(data);
+    try {
+      if (beacon && navigator.sendBeacon && navigator.sendBeacon(ENDPOINT, new Blob([body], { type: 'text/plain;charset=utf-8' }))) return;
+      fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: body, keepalive: true });
+    } catch (e) { /* 記錄失敗不影響使用 */ }
+  }
 
   function esc(s) {
     return String(s).replace(/[&<>"]/g, function (c) {
@@ -13,13 +24,30 @@
   }
   function two(n) { return (n < 10 ? '0' : '') + n; }
 
-  window.DIDI = { LINE_ADD: LINE_ADD, LINE_MSG: LINE_MSG, LOGO: LOGO, QR: QR, esc: esc };
+  window.DIDI = { LINE_ADD: LINE_ADD, LINE_MSG: LINE_MSG, LOGO: LOGO, QR: QR, esc: esc, record: record };
 
   window.runQuiz = function (cfg) {
     var app = document.getElementById('app');
     var st = { ans: cfg.questions.map(function () { return null; }), help: null, picks: [], other: '' };
     var history = [];
     var current = null;
+    var rid = Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+
+    function payload(line) {
+      var t = tier();
+      return {
+        type: 'quiz',
+        id: rid,
+        quiz: cfg.shortName,
+        answers: st.ans.map(function (a, i) { return a == null ? '' : KEYS[a] + ' ' + cfg.questions[i].opts[a]; }),
+        score: score(),
+        tier: t ? (t.name || t.html.replace(/<[^>]+>/g, '')) : '',
+        help: st.help == null ? '' : cfg.helpOpts[st.help],
+        picks: cfg.pick ? st.picks.map(function (i) { return i === cfg.pick.opts.length ? '其他' : cfg.pick.opts[i]; }) : [],
+        other: st.other.trim(),
+        line: !!line
+      };
+    }
 
     function score() {
       return st.ans.reduce(function (s, a) { return s + (a === 0 ? 2 : a === 1 ? 1 : 0); }, 0);
@@ -56,7 +84,8 @@
       quiz: function () {
         var h = cfg.separateIntro ? '' : '<h1>' + esc(cfg.title) + '</h1>' + cfg.introHtml;
         cfg.questions.forEach(function (q, i) { h += radioQ('q' + i, two(i + 1) + '｜' + q.q, q.opts, st.ans[i]); });
-        return h + '<div class="actions"><button class="btn" data-act="next">下一步 →</button></div>';
+        return h + '<div class="actions"><button class="btn" data-act="next">下一步 →</button></div>' +
+          '<p class="note">※ 按「下一步」看結果時，你的答案會匿名記錄（不含姓名或聯絡方式），只用來了解大家的狀況、改善健檢內容。</p>';
       },
       result: function () {
         var t = tier();
@@ -177,6 +206,7 @@
           if (act === 'back') { current = null; go(history.pop(), false); return; }
           if (act === 'line') {
             if (cfg.pick && !check(['pick'])) { e.preventDefault(); return; }
+            record(payload(true), true);
             b.href = LINE_MSG(message());
             setTimeout(function () { go('endYes'); }, 300);
             return;
@@ -185,11 +215,13 @@
             if (current === 'intro') return go('quiz');
             if (current === 'quiz') {
               if (!check(cfg.questions.map(function (_, i) { return 'q' + i; }))) return;
+              record(payload(false));
               return go('result');
             }
             if (current === 'result' && cfg.separateHelp) return go('help');
             if (current === 'result' || current === 'help') {
               if (!check(['help'])) return;
+              record(payload(false));
               return go(st.help === 0 ? 'contact' : 'endNo');
             }
           }
