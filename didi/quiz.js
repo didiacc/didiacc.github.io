@@ -85,7 +85,7 @@
         var h = cfg.separateIntro ? '' : '<h1>' + esc(cfg.title) + '</h1>' + cfg.introHtml;
         cfg.questions.forEach(function (q, i) { h += radioQ('q' + i, two(i + 1) + '｜' + q.q, q.opts, st.ans[i]); });
         return h + '<div class="actions"><button class="btn" data-act="next">下一步 →</button></div>' +
-          '<p class="note">※ 按「下一步」看結果時，你的答案會匿名記錄（不含姓名或聯絡方式），只用來了解大家的狀況、改善健檢內容。</p>';
+          '<p class="note">※ 答案不記名，用來了解老闆們最常遇到的問題。</p>';
       },
       result: function () {
         var t = tier();
