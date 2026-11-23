@@ -38,8 +38,8 @@
     title: '砥砥 DiDi｜財產健檢｜1 分鐘看懂店裡的設備帳',
     shortName: '財產健檢',
     introHtml: '<p>發票有留，為什麼設備還是找不到、帳還是對不起來？<br>回答 7 個問題，砥砥馬上告訴你哪裡做得好、哪裡可以加強。<br>不用填任何金額，全部是選擇題。</p>',
-    separateIntro: false,
-    separateHelp: false,
+    separateIntro: true,
+    separateHelp: true,
     questions: [
       { q: '店裡的大設備，有列清單，而且記了放在哪、誰在用嗎？', opts: ['有清單，放哪、誰在用都有記', '有清單，但沒記放哪、誰在用', '沒有清單'] },
       { q: '花十幾萬買的大設備，帳上是怎麼記的？', opts: ['列成財產，分年提折舊', '不確定，都交給記帳士', '當月全部當費用'] },
@@ -51,25 +51,28 @@
     ],
     scoreLabel: '你的財產健檢結果：',
     tiers: [
-      { min: 12, max: 14, name: '穩穩的', html: '<p><strong>🟢 穩穩的</strong><br>你的設備帳管得很好！繼續保持，每年記得盤點一次就好。</p>' },
-      { min: 7, max: 11, name: '要注意', html: '<p><strong>🟡 要注意</strong><br>大方向沒問題，但有幾個地方容易出狀況。先處理下面「可以加強」的地方，之後的帳會輕鬆很多。</p>' },
-      { min: 0, max: 6, name: '該處理了', html: '<p><strong>🔴 該處理了</strong><br>設備帳目前比較亂，可能會讓你看錯自己賺多少。別擔心，從下面第一個提醒開始，一項一項來。</p>' }
+      { min: 12, max: 14, name: '', html: '<p><strong>你的設備帳管得很好！繼續保持，每年記得盤點一次就好 ✔️</strong></p>' },
+      { min: 7, max: 11, name: '', html: '<p><strong>大方向沒問題，有幾個地方再加強，之後的帳會輕鬆很多 ⚠️</strong></p>' },
+      { min: 0, max: 6, name: '', html: '<p><strong>設備帳有點亂沒關係，先從「列一張設備清單」開始，一步一步整理 ⚠️</strong></p>' }
     ],
-    goodHeading: '✔️ 你做得好的地方',
-    goodHtml: function (i) { return '<p>・' + good[i] + '</p>'; },
-    improveHeading: '⚠️ 可以加強的地方',
-    improveHtml: function (i) { return '<p class="improve"><strong>第 ' + (i + 1) + ' 題｜' + improve[i][0] + '</strong><br>' + improve[i][1] + '</p>'; },
+    goodHeading: '',
+    goodHtml: function (i) { return '<p>✔️ ' + good[i] + '</p>'; },
+    improveHeading: '',
+    improveHtml: function (i) { return '<p>⚠️ <strong>' + improve[i][0] + '</strong>：' + improve[i][1] + '</p>'; },
     topic: improve.map(function (x) { return x[0]; }),
     disclaimer: '※ 健檢結果僅供參考，實際帳務與稅務處理，請以你的記帳士或會計師建議為準。',
     helpQ: '需要砥砥幫你一起整理嗎？',
-    helpOpts: ['需要', '先不用'],
-    contactTopHtml: '<p><strong>謝謝你！砥砥會再跟你聯絡 🏔</strong></p>',
-    contactLineHtml: '<p>按下面的按鈕，會打開砥砥的 LINE，並自動帶入你的健檢結果，按「傳送」砥砥就收到了。</p>',
-    privacy: '※ 你的測驗答案會匿名記錄（不含姓名或聯絡方式），只用來了解大家的需求；只有你在 LINE 按下傳送，砥砥才會收到你的訊息。',
-    endYesHtml: '<p><strong>收到囉！謝謝你做完財產健檢 🏔</strong><br>砥砥是一座山，是老闆的靠山。</p>' +
+    helpOpts: ['需要', '先不用，謝謝'],
+    contactTopHtml: '',
+    pick: {
+      q: '你最想先處理哪一塊？（可複選）',
+      opts: ['列一張設備清單', '大設備和裝潢怎麼分年攤', '發票、保固卡整理', '維修和升級怎麼記', '設備盤點', '個人和店的財產分清楚']
+    },
+    contactLineHtml: '<p style="margin-top:28px"><strong>加入砥砥 LINE 官方帳號：</strong><br>按下面的按鈕，會打開砥砥的 LINE，並自動帶入你的健檢結果和想處理的項目，按「傳送」砥砥就收到了。</p>',
+    privacy: '※ 你的測驗答案和勾選的項目會匿名記錄（不含姓名或聯絡方式），只用來了解大家的需求；只有你在 LINE 按下傳送，砥砥才會收到你的訊息。',
+    endYesHtml: '<p><strong>謝謝你！砥砥收到後會盡快聯絡你 ⛰️</strong><br>設備帳清楚，經營更專注。</p>' +
       '<p class="muted">如果 LINE 沒有自動打開，可以直接加砥砥的 LINE 官方帳號：<a href="' + L + '" target="_blank" rel="noopener">' + L + '</a></p>',
-    endNoHtml: '<p><strong>收到囉！謝謝你做完財產健檢 🏔</strong><br>砥砥是一座山，是老闆的靠山。</p>' +
-      '<p>之後如果需要幫忙整理，隨時可以加砥砥的 LINE 官方帳號：<a href="' + L + '" target="_blank" rel="noopener">' + L + '</a></p>'
+    endNoHtml: '<p><strong>謝謝你完成財產健檢！有需要隨時<a href="' + L + '" target="_blank" rel="noopener">私訊砥砥</a> ⛰️</strong></p>'
   });
 })();
 </script>
