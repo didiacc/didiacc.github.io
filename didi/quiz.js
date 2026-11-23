@@ -5,6 +5,14 @@
   var LOGO = 'https://storage.tally.so/15f08a0e-2e7d-45c5-81b5-8850ad848696/3b6b2e92-3fc7-4435-8cf2-8c1308ee2669.png';
   var QR = 'line-qr.png';
   var KEYS = ['A', 'B', 'C', 'D', 'E', 'F'];
+  // 所有健檢（順序跟首頁一樣）；結束頁會列出「其他」健檢
+  var CHECKS = [
+    ['帳務健檢', 'books-check.html'],
+    ['庫存健檢', 'inventory-check.html'],
+    ['薪資健檢', 'salary-check.html'],
+    ['出納健檢', 'cashier-check.html'],
+    ['財產健檢', 'property-check.html']
+  ];
   // 接收資料的 Google Apps Script 網址（存進砥砥的 Google 試算表）
   var ENDPOINT = 'https://script.google.com/macros/s/AKfycbwTcJOLMqhNqIf32fsMb8Dt3feXExqn7UaKcEyhh49HsDIXAIC4aaq-K6p34nLpSdJn/exec';
 
@@ -134,9 +142,19 @@
         h += '<p class="note">' + esc(cfg.privacy) + '</p>';
         return h;
       },
-      endYes: function () { return cfg.endYesHtml; },
-      endNo: function () { return cfg.endNoHtml; }
+      endYes: function () { return cfg.endYesHtml + more(); },
+      endNo: function () { return cfg.endNoHtml + more(); }
     };
+
+    function more() {
+      var h = '<div class="more" style="margin-top:36px;padding-top:24px;border-top:1px solid var(--line)">' +
+        '<p><strong>再花 1 分鐘，看看其他地方？</strong></p><div>';
+      CHECKS.forEach(function (c) {
+        if (c[0] === cfg.shortName) return;
+        h += '<a class="btn ghost" href="' + c[1] + '" style="min-height:40px;padding:8px 16px;font-size:15px;margin:0 8px 10px 0">' + c[0] + ' →</a>';
+      });
+      return h + '</div><p class="muted" style="margin-top:6px"><a href="./">看全部健檢（首頁）→</a></p></div>';
+    }
 
     function message() {
       var t = tier();
