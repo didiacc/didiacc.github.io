@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>砥砥DiDi｜薪資健檢</title>
+<meta name="description" content="7 題選擇題，1 分鐘填完。填完馬上看結果，知道你的薪資管理哪裡做得好、哪裡要加強。">
+<meta property="og:title" content="砥砥DiDi｜薪資健檢">
+<meta property="og:description" content="7 題選擇題，1 分鐘填完。填完馬上看結果，知道你的薪資管理哪裡做得好、哪裡要加強。">
+<meta property="og:image" content="https://storage.tally.so/15f08a0e-2e7d-45c5-81b5-8850ad848696/3b6b2e92-3fc7-4435-8cf2-8c1308ee2669.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="wrap" id="app"></main>
+<script src="quiz.js"></script>
+<script>
+(function () {
+  var L = DIDI.LINE_ADD;
+  var good = [
+    '出勤資料清楚，算薪水、算加班都有根據',
+    '加扣都照時數和規定算，員工安心，也不怕有爭議',
+    '假日出勤有加倍給，排班和薪水都清楚',
+    '薪資明細清楚，員工有問題也好說明',
+    '算薪水有固定流程，省時間又不容易出錯',
+    '特休算清楚，員工權益顧好，也不怕被查',
+    '投保金額正確，員工有保障，也不怕被追繳'
+  ];
+  var bad = [
+    '勞檢一定會看出勤記錄，要每天記到幾點幾分。出勤資料整理清楚，薪水才算得準',
+    '加班費是勞檢被罰最多的項目，請假扣太多也會違規。建議每一筆加扣都照實際時數算，留下依據',
+    '國定假日上班，薪水要加倍給。建議先列出今年的國定假日，算薪水時一起核對',
+    '法規要求每月給薪資明細、留工資清冊。建議每個月做一張薪資條，寫清楚每一項加減',
+    '每個月重算、怕算錯，花掉的是老闆最寶貴的時間。建議把薪資計算做成固定流程，或交給專人處理',
+    '特休沒給足、休不完沒折成薪水，是常見違規。建議每位員工列一張特休表，工讀生也要照工時比例算',
+    '投保金額比實際薪水低，或工讀生沒保，會被罰款，員工也可以要求賠償。建議每次調薪都一起檢查投保金額'
+  ];
+  runQuiz({
+    title: '砥砥DiDi｜薪資健檢',
+    shortName: '薪資健檢',
+    introHtml: '<p>7 題選擇題，1 分鐘填完。<br>填完馬上看結果，知道你的薪資管理哪裡做得好、哪裡要加強。</p>',
+    separateIntro: true,
+    separateHelp: true,
+    questions: [
+      { q: '員工的打卡和排班資料，每個月整理起來清楚嗎？', opts: ['可以直接匯出，很清楚', '要一張一張對，常常漏掉', '紙本或靠記憶'] },
+      { q: '加班費和請假扣款，都是照實際時數和規定的倍數算嗎？', opts: ['都照時數和倍數算', '大概估一個數字', '不太清楚怎麼算'] },
+      { q: '國定假日請員工來上班，薪水有加倍嗎？', opts: ['有加倍，也清楚怎麼算', '不太確定怎麼算', '沒有加倍'] },
+      { q: '每個月發薪水，會給員工一張薪資明細嗎？', opts: ['每個月都有，項目寫得很清楚', '只有匯款，沒有明細', '沒有'] },
+      { q: '每個月算薪水，要花你多少時間？', opts: ['很快，而且很少出錯', '要花一、兩天，常常要重算', '每次都很頭痛，怕算錯'] },
+      { q: '每位員工的特休有幾天、休不完的有折成薪水嗎？', opts: ['每個人都算清楚，也有折算', '大概知道，沒有細算', '沒有算過'] },
+      { q: '員工的勞健保都照實際薪水投保，調薪後也有跟著調嗎？', opts: ['都照實際薪水，調薪也會跟著調', '有保，但金額比實際薪水低', '有些人（例如工讀生）沒有保'] }
+    ],
+    scoreLabel: '你的薪資健檢結果：',
+    tiers: [
+      { min: 12, max: 14, name: '', html: '<p><strong>你的薪資管理很有條理！繼續保持，每次調薪記得一起檢查投保金額 ✔️</strong></p>' },
+      { min: 7, max: 11, name: '', html: '<p><strong>基礎已經有了，有幾個地方再注意，就不怕員工有爭議或被勞檢 ⚠️</strong></p>' },
+      { min: 0, max: 6, name: '', html: '<p><strong>薪資有點亂沒關係，先從「把打卡和排班資料整理清楚」開始，一步一步整理 ⚠️</strong></p>' }
+    ],
+    goodHeading: '',
+    goodHtml: function (i) { return '<p>✔️ ' + good[i] + '</p>'; },
+    improveHeading: '',
+    improveHtml: function (i) { return '<p>⚠️ ' + bad[i] + '</p>'; },
+    topic: null,
+    disclaimer: '※ 健檢結果僅供參考，實際規定請以勞動部公告為準。',
+    helpQ: '需要砥砥幫你一起整理嗎？',
+    helpOpts: ['需要', '先不用，謝謝'],
+    contactTopHtml: '',
+    pick: {
+      q: '你最想先處理哪一塊？（可複選）',
+      opts: ['打卡和出勤整理', '加班費和請假扣款', '國定假日和特休', '每月薪資條', '勞健保投保金額', '每月薪資計算整個交給砥砥']
+    },
+    contactLineHtml: '<p style="margin-top:28px"><strong>加入砥砥 LINE 官方帳號：</strong><br>按下面的按鈕，會打開砥砥的 LINE，並自動帶入你的健檢結果和想處理的項目，按「傳送」砥砥就收到了。</p>',
+    privacy: '※ 你的測驗答案和勾選的項目會匿名記錄（不含姓名或聯絡方式），只用來了解大家的需求；只有你在 LINE 按下傳送，砥砥才會收到你的訊息。',
+    endYesHtml: '<p><strong>謝謝你！砥砥收到後會盡快聯絡你 ⛰️</strong><br>薪資清楚，經營更專注。</p>' +
+      '<p class="muted">如果 LINE 沒有自動打開，可以直接加砥砥的 LINE 官方帳號：<a href="' + L + '" target="_blank" rel="noopener">' + L + '</a></p>',
+    endNoHtml: '<p><strong>謝謝你完成薪資健檢！有需要隨時<a href="' + L + '" target="_blank" rel="noopener">私訊砥砥</a> ⛰️</strong></p>'
+  });
+})();
+</script>
+</body>
+</html>
