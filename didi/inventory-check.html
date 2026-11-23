@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>砥砥DiDi｜庫存健檢</title>
+<meta name="description" content="7 題選擇題，1 分鐘填完。填完馬上看結果，知道你的庫存哪裡做得好、哪裡要加強。">
+<meta property="og:title" content="砥砥DiDi｜庫存健檢">
+<meta property="og:description" content="7 題選擇題，1 分鐘填完。填完馬上看結果，知道你的庫存哪裡做得好、哪裡要加強。">
+<meta property="og:image" content="https://storage.tally.so/15f08a0e-2e7d-45c5-81b5-8850ad848696/3b6b2e92-3fc7-4435-8cf2-8c1308ee2669.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="wrap" id="app"></main>
+<script src="quiz.js"></script>
+<script>
+(function () {
+  var L = DIDI.LINE_ADD;
+  var good = [
+    '記錄集中在一個地方，要查、要對都很快',
+    '帳上和架上對得起來，代表庫存管得很確實',
+    '提早補貨，想買的客人不會撲空',
+    '知道哪些貨賣不動，錢比較不會壓在倉庫裡',
+    '知道誰是主力商品，進貨和主打都有方向',
+    '知道每樣商品真正賺多少，訂價和主推都有根據',
+    '每個月看毛利，經營更有方向'
+  ];
+  var bad = [
+    '記錄分散在好幾個地方，月底最容易對不起來。建議把進貨和賣出記在同一張表',
+    '對不起來通常是漏記、退貨沒補回或遺失。建議每個月盤點一次，找出差異的原因',
+    '賣完才補貨，等於把想買的客人推走。建議替熱銷品訂一個「剩多少就補貨」的數量',
+    '賣不掉的貨會一直壓住錢。建議每個月列出放超過一個月沒賣出的商品',
+    '只看總營業額，看不出誰在撐場。建議每個月排一次銷售前 10 名',
+    '賣得多不一定賺得多。建議先算出前 5 名商品扣掉所有成本後，賣一個賺多少',
+    '沒有月報表，很難知道這個月到底有沒有賺。建議每個月整理一張簡單的進銷存月報'
+  ];
+  runQuiz({
+    title: '砥砥DiDi｜庫存健檢',
+    shortName: '庫存健檢',
+    introHtml: '<p>7 題選擇題，1 分鐘填完。<br>填完馬上看結果，知道你的庫存哪裡做得好、哪裡要加強。</p>',
+    separateIntro: true,
+    separateHelp: true,
+    questions: [
+      { q: '進貨、賣出和網路訂單，都記在同一個地方嗎？', opts: ['都記在同一個地方', '分在兩、三個地方', '沒有固定記錄'] },
+      { q: '盤點出來的數量，跟記錄對得起來嗎？', opts: ['大致對得起來，差的也查得到原因', '常常差，也查不出原因', '沒有盤點過'] },
+      { q: '熱銷的商品，會在快賣完之前就補貨嗎？', opts: ['會，快沒貨就知道', '常常賣完才發現', '沒有注意過'] },
+      { q: '放很久賣不掉的商品，你知道是哪些嗎？', opts: ['知道，也會想辦法出清', '大概知道，但還沒處理', '不清楚'] },
+      { q: '店裡賣最好的前 5 名商品，你說得出來嗎？', opts: ['說得出來，有實際數字', '憑感覺大概知道', '說不出來'] },
+      { q: '每樣商品扣掉成本、運費、包材和平台抽成，賣一個賺多少，你算過嗎？', opts: ['每一樣都算過', '只算過幾樣', '沒有算過'] },
+      { q: '每個月有一份報表，看得出這個月的毛利是多少嗎？', opts: ['有，而且每個月都會看', '有，但看不太懂或很少看', '沒有'] }
+    ],
+    scoreLabel: '你的庫存健檢結果：',
+    tiers: [
+      { min: 12, max: 14, name: '', html: '<p><strong>你的庫存管得很有條理！繼續保持，每個月盤點一次就好 ✔️</strong></p>' },
+      { min: 7, max: 11, name: '', html: '<p><strong>基礎已經有了，有幾個地方再加強，就更知道錢花在哪、賺在哪 ⚠️</strong></p>' },
+      { min: 0, max: 6, name: '', html: '<p><strong>庫存有點亂沒關係，先從「進貨和賣出記在同一個地方」開始，一步一步整理 ⚠️</strong></p>' }
+    ],
+    goodHeading: '',
+    goodHtml: function (i) { return '<p>✔️ ' + good[i] + '</p>'; },
+    improveHeading: '',
+    improveHtml: function (i) { return '<p>⚠️ ' + bad[i] + '</p>'; },
+    topic: null,
+    disclaimer: '※ 健檢結果僅供參考，實際帳務與稅務處理，請以你的記帳士或會計師建議為準。',
+    helpQ: '需要砥砥幫你一起整理嗎？',
+    helpOpts: ['需要', '先不用，謝謝'],
+    contactTopHtml: '',
+    pick: {
+      q: '你最想先處理哪一塊？（可複選）',
+      opts: ['進貨、賣出記在同一個地方', '盤點對不起來', '熱銷品常常缺貨', '賣不掉的貨怎麼處理', '算出每樣商品賺多少', '每個月的進銷存報表']
+    },
+    contactLineHtml: '<p style="margin-top:28px"><strong>加入砥砥 LINE 官方帳號：</strong><br>按下面的按鈕，會打開砥砥的 LINE，並自動帶入你的健檢結果和想處理的項目，按「傳送」砥砥就收到了。</p>',
+    privacy: '※ 你的測驗答案和勾選的項目會匿名記錄（不含姓名或聯絡方式），只用來了解大家的需求；只有你在 LINE 按下傳送，砥砥才會收到你的訊息。',
+    endYesHtml: '<p><strong>謝謝你！砥砥收到後會盡快聯絡你 ⛰️</strong><br>庫存清楚，經營更專注。</p>' +
+      '<p class="muted">如果 LINE 沒有自動打開，可以直接加砥砥的 LINE 官方帳號：<a href="' + L + '" target="_blank" rel="noopener">' + L + '</a></p>',
+    endNoHtml: '<p><strong>謝謝你完成庫存健檢！有需要隨時<a href="' + L + '" target="_blank" rel="noopener">私訊砥砥</a> ⛰️</strong></p>'
+  });
+})();
+</script>
+</body>
+</html>
