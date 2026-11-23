@@ -252,14 +252,29 @@ input[type=text]:focus, textarea:focus, select:focus {
 
 /* ---------- index ---------- */
 .cards { display: grid; gap: 12px; margin-top: 24px; }
+.cards-lead { margin-top: 28px; margin-bottom: -8px; color: var(--ink); font-weight: 700; }
 .card {
   display: block;
-  padding: 18px 18px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
+  padding: 18px 18px 16px;
+  border: 1.5px solid var(--ink);
+  border-radius: 12px;
   text-decoration: none;
   color: var(--text);
+  box-shadow: 4px 4px 0 var(--ink);
+  transition: transform .12s, box-shadow .12s;
 }
-.card:hover { border-color: var(--ink); background: var(--soft); }
-.card strong { display: block; font-size: 17px; margin-bottom: 4px; }
-.card span { color: var(--muted); font-size: 14px; }
+.card:hover, .card:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); background: var(--soft); }
+.card .tag {
+  display: inline-block;
+  background: var(--ink);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  border-radius: 999px;
+  padding: 3px 10px;
+  margin-bottom: 10px;
+}
+.card strong { display: block; font-size: 20px; margin-bottom: 6px; }
+.card .hook { display: block; color: var(--ink); font-size: 16px; line-height: 1.6; }
+.card .go { display: block; margin-top: 12px; color: var(--ink); font-size: 15px; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
