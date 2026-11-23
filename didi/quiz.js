@@ -113,7 +113,7 @@
           h += radioQ('help', cfg.helpQ, cfg.helpOpts, st.help);
           h += '<div class="actions"><button class="btn" data-act="next">下一步 →</button></div>';
         }
-        return h + more();
+        return h;
       },
       help: function () {
         return radioQ('help', cfg.helpQ, cfg.helpOpts, st.help) +
