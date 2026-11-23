@@ -6,7 +6,7 @@
   var QR = 'line-qr.png';
   var KEYS = ['A', 'B', 'C', 'D', 'E', 'F'];
   // 接收資料的 Google Apps Script 網址（存進砥砥的 Google 試算表）
-  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbw3Sv8id1IDKsqpl6Y_P-MRlDHVlYlP4ji1UQlBMEp58OIh-pplxKMOgIwezDkdiIPNuA/exec';
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbwTcJOLMqhNqIf32fsMb8Dt3feXExqn7UaKcEyhh49HsDIXAIC4aaq-K6p34nLpSdJn/exec';
 
   function record(data, beacon) {
     if (!ENDPOINT) return;
