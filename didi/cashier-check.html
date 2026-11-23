@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>砥砥 DiDi｜出納健檢</title>
+<meta name="description" content="7 題選擇題，1 分鐘填完。填完馬上看結果，知道你的付款與出納哪裡做得好、哪裡要加強。">
+<meta property="og:title" content="砥砥 DiDi｜出納健檢">
+<meta property="og:description" content="7 題選擇題，1 分鐘填完。填完馬上看結果，知道你的付款與出納哪裡做得好、哪裡要加強。">
+<meta property="og:image" content="https://storage.tally.so/15f08a0e-2e7d-45c5-81b5-8850ad848696/3b6b2e92-3fc7-4435-8cf2-8c1308ee2669.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="wrap" id="app"></main>
+<script src="quiz.js"></script>
+<script>
+(function () {
+  var L = DIDI.LINE_ADD;
+  var good = [
+    '付款資料有固定流程，省時間也不容易漏',
+    '付款集中管理，一眼就知道這個月要付多少',
+    '資料收齊再付款，之後對帳也很順',
+    '付款前有核對，比較不容易多付或付錯',
+    '付款資料有人整理，老闆核對後再授權，省時間也比較安心',
+    '付款記錄清楚，月底對帳很輕鬆',
+    '零用金和代墊款清楚，誰墊多少一目了然'
+  ];
+  var bad = [
+    '付款資料一多、單據分散，每次整理就花掉半天。可以先固定每週或每月整理一次，或把整理流程交給專人處理',
+    '付款資訊散在各處，忙起來很容易漏付或重複付。可以先把這個月要付的款項和日期，記在同一張表上',
+    '請款資料不齊，付款時要到處找，之後對帳也會卡住。可以先固定一個收件日，請廠商在那之前把請款資料交齊',
+    '沒有每一筆都核對，比較容易多付、付錯或重複付。可以先從金額較大的款項開始，付款前對一下單據',
+    '老闆一個人包辦網銀，沒空時付款就容易延遲。可以先把付款資料交給專人整理，再由老闆自行核對和授權',
+    '沒有完整的付款記錄，月底對帳要翻很久，也容易搞混付過沒。可以先從每筆付款記下日期、對象和金額開始',
+    '零用金和代墊款沒記清楚，時間一久很容易變成糊塗帳。可以先留好單據，每個月固定整理一次'
+  ];
+  runQuiz({
+    title: '砥砥 DiDi｜出納健檢',
+    shortName: '出納健檢',
+    introHtml: '<p>7 題選擇題，1 分鐘填完。<br>填完馬上看結果，知道你的付款與出納哪裡做得好、哪裡要加強。</p>',
+    separateIntro: true,
+    separateHelp: true,
+    questions: [
+      { q: '每個月付廠商的錢，要花你多少時間整理付款資料？', opts: ['很快，有固定流程', '要花不少時間，常常要重找單據', '每次都拖到最後，很頭痛'] },
+      { q: '要付的款項，有集中在一張表、一個人處理嗎？', opts: ['有，集中在一張付款表', '分散在 LINE、紙本或不同人手上', '沒有固定付款清單，常常到期才發現要付'] },
+      { q: '付款前，廠商的請款資料和單據都收齊了嗎？', opts: ['都收齊了才付', '常常要一直追廠商補資料', '資料不齊也先付了'] },
+      { q: '付款前，會核對請款資料和相關單據，確認金額沒錯嗎？', opts: ['每一筆都會核對', '大筆的才核對', '直接照請款金額付'] },
+      { q: '網銀付款，現在是誰在處理？', opts: ['有人整理付款資料，老闆自行核對並授權付款', '老闆自己抽空處理，常常拖到很晚', '老闆沒空處理，付款常常延遲'] },
+      { q: '付完款，付款記錄有整理好，月底可以拿來對帳嗎？', opts: ['每筆都有記錄，月底對得起來', '要翻網銀或存摺才知道', '常常不確定付過沒有'] },
+      { q: '零用金和老闆、員工先墊的錢，有記錄、定期整理嗎？', opts: ['有記錄，定期整理歸還', '大概記得', '常常算不清楚'] }
+    ],
+    scoreLabel: '你的出納健檢結果：',
+    tiers: [
+      { min: 12, max: 14, name: '', html: '<p><strong>你的付款管理很有條理！繼續保持，每個月對一次付款記錄就好 ✔️</strong></p>' },
+      { min: 7, max: 11, name: '', html: '<p><strong>基礎已經有了，有幾個地方再整理，付款會更省時、更不容易出錯 ⚠️</strong></p>' },
+      { min: 0, max: 6, name: '', html: '<p><strong>付款有點亂沒關係，先從「把每月要付的款項集中到一張表」開始，一步一步整理 ⚠️</strong></p>' }
+    ],
+    goodHeading: '',
+    goodHtml: function (i) { return '<p>✔️ ' + good[i] + '</p>'; },
+    improveHeading: '',
+    improveHtml: function (i) { return '<p>⚠️ ' + bad[i] + '</p>'; },
+    topic: null,
+    disclaimer: '※ 健檢結果僅供參考，實際做法可依你的店家狀況調整。',
+    helpQ: '需要砥砥幫你一起整理嗎？',
+    helpOpts: ['需要', '先不用，謝謝'],
+    contactTopHtml: '',
+    pick: {
+      q: '你最想先處理哪一塊？（可複選）',
+      opts: ['收齊廠商請款資料', '整理每月付款清單', '付款前核對單據', '網銀付款資料準備', '付款記錄與對帳', '零用金和代墊款整理']
+    },
+    contactLineHtml: '<p style="margin-top:28px"><strong>加入砥砥 LINE 官方帳號：</strong><br>按下面的按鈕，會打開砥砥的 LINE，並自動帶入你的健檢結果和想處理的項目，按「傳送」砥砥就收到了。</p>',
+    privacy: '※ 健檢答案不記名，用來了解老闆們最常遇到的問題；你在 LINE 按下傳送後，砥砥才會收到你的健檢結果和 LINE 名稱。',
+    endYesHtml: '<p><strong>謝謝你！砥砥收到後會盡快聯絡你 ⛰️</strong><br>付款清楚，經營更專注。</p>' +
+      '<p class="muted">如果 LINE 沒有自動打開，可以直接加砥砥的 LINE 官方帳號：<a href="' + L + '" target="_blank" rel="noopener">' + L + '</a></p>',
+    endNoHtml: '<p><strong>謝謝你完成出納健檢！有需要隨時<a href="' + L + '" target="_blank" rel="noopener">私訊砥砥</a> ⛰️</strong></p>'
+  });
+})();
+</script>
+</body>
+</html>
