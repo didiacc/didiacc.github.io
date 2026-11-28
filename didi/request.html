@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>砥砥 DiDi｜委外需求諮詢單</title>
-<meta name="description" content="填寫委外需求，砥砥會依實際工作內容、資料量及配合方式進行初步評估，並與您聯繫討論適合的合作方案。">
-<meta property="og:title" content="砥砥 DiDi｜委外需求諮詢單">
-<meta property="og:description" content="填寫委外需求，砥砥會依實際工作內容、資料量及配合方式進行初步評估。">
+<title>砥砥 DiDi｜需求單</title>
+<meta name="description" content="填寫需求單，砥砥會依實際工作內容、資料量及配合方式進行初步評估，並與您聯繫討論適合的合作方案。">
+<meta property="og:title" content="砥砥 DiDi｜需求單">
+<meta property="og:description" content="填寫需求單，砥砥會依實際工作內容、資料量及配合方式進行初步評估。">
 <meta property="og:image" content="https://storage.tally.so/15f08a0e-2e7d-45c5-81b5-8850ad848696/3b6b2e92-3fc7-4435-8cf2-8c1308ee2669.png">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -15,8 +15,8 @@
   <img class="logo" id="logo" alt="砥砥 DiDi">
 
   <section id="form">
-    <h1>砥砥 DiDi｜委外需求諮詢單</h1>
-    <p>歡迎填寫以下需求，將依實際工作內容、資料量及配合方式進行初步評估，並與您聯繫討論適合的合作方案。<br>本表單僅供需求諮詢，填寫後不代表正式委託或成立合作關係。</p>
+    <h1>砥砥 DiDi｜需求單</h1>
+    <p>歡迎填寫以下需求，將依實際工作內容、資料量及配合方式進行初步評估，並與您聯繫討論適合的合作方案。<br>本表單僅用於了解需求，填寫後不代表正式委託或成立合作關係。</p>
 
     <div class="q" id="q-name">
       <label class="q-title" for="name">▍請問方便怎麼稱呼您？<span class="req">*</span></label>
@@ -37,7 +37,7 @@
         <legend>02｜您需要哪一類服務？（可複選）<span class="req">*</span></legend>
         <div id="svc"></div>
         <p class="err" hidden>請至少選一項</p>
-        <p class="hint" style="margin-top:10px">※ 砥砥協助內部帳務與行政整理，不代辦報稅及稅務申報；正式帳務與報稅，請由您配合的記帳士或會計師處理。</p>
+        <p class="hint" style="margin-top:10px">※ 砥砥協助整理營運資料；會計與稅務事項，由您配合的會計師或記帳士處理。</p>
       </fieldset>
 
       <div id="details"></div>
@@ -50,7 +50,7 @@
           <option value="">請選擇</option>
           <option>行號／商業登記（小規模營業人）</option>
           <option>行號／商業登記（使用統一發票）</option>
-          <option>行號／商業登記（不清楚稅務身分）</option>
+          <option>行號／商業登記（不確定類型）</option>
           <option>有限公司</option>
           <option>股份有限公司</option>
           <option>尚未設立／籌備中</option>
@@ -63,11 +63,20 @@
         <input type="text" id="industry" placeholder="例如：餐飲、電商、貿易、工程">
       </div>
 
+      <fieldset class="q" id="q-cpa">
+        <legend>03｜您目前有配合的會計師或記帳士嗎？（單選）</legend>
+        <label class="opt"><input type="radio" name="cpa" value="有"><span class="key">A</span><span>有</span></label>
+        <label class="opt"><input type="radio" name="cpa" value="還沒有"><span class="key">B</span><span>還沒有</span></label>
+        <label class="opt"><input type="radio" name="cpa" value="不確定"><span class="key">C</span><span>不確定</span></label>
+        <p class="hint" style="margin-top:6px">砥砥整理好的資料，會交給您配合的會計師或記帳士銜接。</p>
+        <p class="err" hidden>請選一個答案</p>
+      </fieldset>
+
       <p class="section">▍合作需求</p>
       <p>線上就能完成，資料交接很簡單：<br>・手機拍照、電腦上傳，單據隨時傳給砥砥<br>・紙本資料可郵寄交接<br>・臺北／新北／桃園可安排定期到場<br>※ 郵寄、交通及額外到場費用另計，由委託方負擔</p>
 
       <div class="q">
-        <label class="q-title" for="budget">01｜您預計的委外服務預算為何？</label>
+        <label class="q-title" for="budget">01｜您預計的服務預算為何？</label>
         <input type="text" id="budget">
         <p class="hint" style="margin-top:6px">可填寫預算金額或區間；若尚未確定，可留白，由砥砥依需求評估報價。</p>
       </div>
@@ -106,7 +115,7 @@
 
   <section id="thanks" hidden>
     <p><strong>感謝您的填寫！</strong></p>
-    <p id="t-line"><strong>在 LINE 按下「傳送」，砥砥就會收到您的需求單，我們會盡快在 LINE 回覆您。</strong></p>
+    <p id="t-line"><strong>在 LINE 按下「傳送」，砥砥就會收到您的需求單，砥砥會盡快在 LINE 回覆您。</strong></p>
     <p class="muted" id="t-hint">如果 LINE 沒有自動打開，或內容沒有帶進去，可以先複製下面的內容，再貼到砥砥的 LINE：</p>
     <textarea class="copybox" id="copy" readonly rows="8"></textarea>
     <div class="actions" style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap">
@@ -128,7 +137,7 @@
   document.getElementById('qr').src = D.QR;
 
   var services = [
-    { name: '帳務整理（流水帳／內帳、管理報表）', title: '帳務整理｜目前帳務的狀況和需求', hint: '可以簡單寫寫：每月大約有多少單據、想從報表看到什麼（例如每月賺賠、各產品毛利、現金進出）', ph: '例如：每月約 100 張單據，想知道每月到底有沒有賺錢' },
+    { name: '帳務整理（收支核對、經營月報）', title: '帳務整理｜目前帳務的狀況和需求', hint: '可以簡單寫寫：每月大約有多少單據、想從報表看到什麼（例如每月收支、現金進出、各產品賺多少）', ph: '例如：每月約 100 張單據，想知道每月到底有沒有賺錢' },
     { name: '薪資計算', title: '薪資｜目前薪資的狀況和需求', hint: '可以簡單寫寫：員工人數', ph: '例如：10 人（正職、兼職）' },
     { name: '出納付款', title: '出納｜目前付款的狀況和需求', hint: '可以簡單寫寫：每月大約幾筆付款、有幾個銀行帳戶、目前怎麼整理付款資料', ph: '例如：每月約 30 筆廠商付款，兩個銀行帳戶，目前都是老闆自己整理' },
     { name: '庫存管理', title: '庫存管理｜目前庫存的狀況和需求', hint: '可以簡單寫寫：商品大約多少品項、有沒有多個倉庫或門市、目前怎麼記庫存', ph: '例如：約 200 個品項，一個倉庫，目前只有手寫紀錄' },
@@ -167,7 +176,7 @@
 
   function message() {
     var v = function (id) { return $(id).value.trim(); };
-    var m = ['你好，我想諮詢委外服務（需求單）', '稱呼：' + v('name')];
+    var m = ['你好，我想了解砥砥的服務（需求單）', '稱呼：' + v('name')];
     if (v('lineid')) m.push('LINE ID：' + v('lineid'));
     if (v('problem')) m.push('目前最想解決的問題：' + v('problem'));
     var p = picked();
@@ -175,6 +184,8 @@
     p.forEach(function (i) { var t = v('dt' + i); if (t) m.push('・' + services[i].title.split('｜')[0] + '：' + t); });
     if (v('biz')) m.push('登記型態：' + v('biz'));
     if (v('industry')) m.push('產業：' + v('industry'));
+    var c = document.querySelector('input[name=cpa]:checked');
+    if (c) m.push('配合的會計師／記帳士：' + c.value);
     if (v('budget')) m.push('預算：' + v('budget'));
     var n = document.querySelector('input[name=next]:checked');
     if (n) m.push('接下來希望：' + n.value);
@@ -205,7 +216,7 @@
       details: services.map(function (s, i) { return $('d' + i).hidden ? '' : val('dt' + i); }),
       biz: val('biz'),
       industry: val('industry'),
-      cpa: '',
+      cpa: (document.querySelector('input[name=cpa]:checked') || { value: '' }).value,
       budget: val('budget'),
       next: n ? n.value : '',
       more: val('more'),
@@ -217,7 +228,7 @@
     if (D.MOBILE === false) {
       // 電腦打不開 LINE App（會跳到 LINE 首頁），改成顯示可以用手機掃的 QR Code
       e.preventDefault();
-      $('t-line').innerHTML = '<strong>請用手機 LINE 掃描下面的 QR Code，會打開砥砥的 LINE 並帶入您填寫的內容，按「傳送」砥砥就收到了，我們會盡快在 LINE 回覆您。</strong>';
+      $('t-line').innerHTML = '<strong>請用手機 LINE 掃描下面的 QR Code，會打開砥砥的 LINE 並帶入您填寫的內容，按「傳送」砥砥就收到了，砥砥會盡快在 LINE 回覆您。</strong>';
       $('t-hint').textContent = '電腦有裝 LINE 的話，也可以按「複製內容」，貼到砥砥的 LINE 聊天室：';
       $('again').hidden = true;
       $('t-line').insertAdjacentElement('afterend', $('qrlink'));
