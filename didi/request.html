@@ -63,15 +63,6 @@
         <input type="text" id="industry" placeholder="例如：餐飲、電商、貿易、工程">
       </div>
 
-      <div class="q">
-        <label class="q-title" for="cpa">03｜目前是否有配合的會計師或記帳士事務所？</label>
-        <select id="cpa">
-          <option value="">請選擇</option>
-          <option>有</option>
-          <option>沒有</option>
-        </select>
-      </div>
-
       <p class="section">▍合作需求</p>
       <p>線上就能完成，資料交接很簡單：<br>・手機拍照、電腦上傳，單據隨時傳給砥砥<br>・紙本資料可郵寄交接<br>・臺北／新北／桃園可安排定期到場<br>※ 郵寄、交通及額外到場費用另計，由委託方負擔</p>
 
@@ -184,7 +175,6 @@
     p.forEach(function (i) { var t = v('dt' + i); if (t) m.push('・' + services[i].title.split('｜')[0] + '：' + t); });
     if (v('biz')) m.push('登記型態：' + v('biz'));
     if (v('industry')) m.push('產業：' + v('industry'));
-    if (v('cpa')) m.push('配合的會計師或記帳士：' + v('cpa'));
     if (v('budget')) m.push('預算：' + v('budget'));
     var n = document.querySelector('input[name=next]:checked');
     if (n) m.push('接下來希望：' + n.value);
@@ -215,7 +205,7 @@
       details: services.map(function (s, i) { return $('d' + i).hidden ? '' : val('dt' + i); }),
       biz: val('biz'),
       industry: val('industry'),
-      cpa: val('cpa'),
+      cpa: '',
       budget: val('budget'),
       next: n ? n.value : '',
       more: val('more'),
