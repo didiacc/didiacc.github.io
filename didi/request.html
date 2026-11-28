@@ -106,8 +106,8 @@
 
   <section id="thanks" hidden>
     <p><strong>感謝您的填寫！</strong></p>
-    <p><strong>在 LINE 按下「傳送」，砥砥就會收到您的需求單，我們會盡快在 LINE 回覆您。</strong></p>
-    <p class="muted">如果 LINE 沒有自動打開，或內容沒有帶進去，可以先複製下面的內容，再貼到砥砥的 LINE：</p>
+    <p id="t-line"><strong>在 LINE 按下「傳送」，砥砥就會收到您的需求單，我們會盡快在 LINE 回覆您。</strong></p>
+    <p class="muted" id="t-hint">如果 LINE 沒有自動打開，或內容沒有帶進去，可以先複製下面的內容，再貼到砥砥的 LINE：</p>
     <textarea class="copybox" id="copy" readonly rows="8"></textarea>
     <div class="actions" style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap">
       <button class="btn ghost" id="copybtn" type="button">複製內容</button>
@@ -118,7 +118,7 @@
   </section>
 </main>
 
-<script src="quiz.js"></script>
+<script src="quiz.js?v=6"></script>
 <script>
 (function () {
   var D = window.DIDI, esc = D.esc;
@@ -212,9 +212,22 @@
       text: msg
     }, true);
     var url = D.LINE_MSG(msg);
-    this.href = url;
     $('copy').value = msg;
     $('again').href = url;
+    if (D.MOBILE === false) {
+      // 電腦打不開 LINE App（會跳到 LINE 首頁），改成顯示可以用手機掃的 QR Code
+      e.preventDefault();
+      $('t-line').innerHTML = '<strong>請用手機 LINE 掃描下面的 QR Code，會打開砥砥的 LINE 並帶入您填寫的內容，按「傳送」砥砥就收到了，我們會盡快在 LINE 回覆您。</strong>';
+      $('t-hint').textContent = '電腦有裝 LINE 的話，也可以按「複製內容」，貼到砥砥的 LINE 聊天室：';
+      $('again').hidden = true;
+      $('t-line').insertAdjacentElement('afterend', $('qrlink'));
+      D.qrInto($('qrlink'), url);
+      $('form').hidden = true;
+      $('thanks').hidden = false;
+      window.scrollTo(0, 0);
+      return;
+    }
+    this.href = url;
     setTimeout(function () {
       $('form').hidden = true;
       $('thanks').hidden = false;

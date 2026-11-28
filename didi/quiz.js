@@ -24,7 +24,37 @@
   }
   function two(n) { return (n < 10 ? '0' : '') + n; }
 
-  window.DIDI = { LINE_ADD: LINE_ADD, LINE_MSG: LINE_MSG, LOGO: LOGO, QR: QR, esc: esc, record: record };
+  // 手機才能直接打開 LINE 帶入訊息；電腦打開會被 LINE 導到首頁，所以電腦改用 QR Code
+  var UA = navigator.userAgent;
+  var MOBILE = /Android|iPhone|iPad|iPod|Mobile|Line\//i.test(UA) || (navigator.maxTouchPoints > 1 && /Macintosh/.test(UA));
+
+  // 在 el 裡畫一個 QR Code：手機掃了會打開砥砥的 LINE 並帶入訊息；畫不出來就改放加好友的 QR Code
+  function qrInto(el, url) {
+    var fallback = function () { el.innerHTML = '<img class="qr" src="' + QR + '" alt="砥砥 DiDi LINE 官方帳號 QR Code">'; };
+    var draw = function () {
+      try {
+        var q = qrcode(0, 'L'); q.addData(url); q.make();
+        el.innerHTML = '<img class="qr" style="width:260px;max-width:80%;image-rendering:pixelated" src="' + q.createDataURL(4, 3) + '" alt="用手機 LINE 掃描，打開砥砥的 LINE">';
+      } catch (e) { fallback(); }
+    };
+    if (window.qrcode) return draw();
+    var s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js';
+    s.onload = draw; s.onerror = fallback;
+    document.head.appendChild(s);
+  }
+
+  function copyText(text, done) {
+    var old = function () {
+      var t = document.createElement('textarea'); t.value = text; t.style.position = 'fixed'; t.style.opacity = '0';
+      document.body.appendChild(t); t.select();
+      try { document.execCommand('copy'); } catch (e) { /* 忽略 */ }
+      document.body.removeChild(t); done();
+    };
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, old); else old();
+  }
+
+  window.DIDI = { LINE_ADD: LINE_ADD, LINE_MSG: LINE_MSG, LOGO: LOGO, QR: QR, esc: esc, record: record, MOBILE: MOBILE, qrInto: qrInto, copyText: copyText };
 
   window.runQuiz = function (cfg) {
     var app = document.getElementById('app');
@@ -67,6 +97,7 @@
       app.innerHTML = logo() + (/^end/.test(name) ? '' : back()) + screens[name]();
       window.scrollTo(0, 0);
       bind();
+      if (name === 'result' && !MOBILE) qrInto(document.getElementById('qrbox'), LINE_MSG(message()));
     }
 
     function radioQ(id, title, opts, chosen) {
@@ -102,6 +133,14 @@
         bad.forEach(function (i) { h += cfg.improveHtml(i); });
         h += '</div><p class="note">' + esc(cfg.disclaimer) + '</p>';
         // 需要幫忙就直接加 LINE；不需要的人看完關掉就好
+        if (!MOBILE) {
+          h += '<div id="cta"><p style="margin-top:28px"><strong>需要砥砥幫忙？用手機 LINE 掃描下面的 QR Code 👇</strong></p>' +
+            '<p class="muted">掃描後會打開砥砥的 LINE，並帶入你的健檢結果，按「傳送」砥砥就收到了。</p>' +
+            '<div id="qrbox"></div>' +
+            '<div class="actions" style="margin-top:12px"><button type="button" class="btn ghost" data-act="copy">複製我的健檢結果</button></div>' +
+            '<p class="muted" style="margin-top:8px">電腦有裝 LINE 的話，也可以複製後貼到砥砥的 LINE 聊天室。</p></div>';
+          return h;
+        }
         h += '<div id="cta"><div class="actions"><a class="btn wide" href="' + LINE_ADD + '" target="_blank" rel="noopener" data-act="line">需要砥砥幫忙？加 LINE 聊聊 →</a></div>' +
           '<p class="muted" style="margin-top:12px">按下後會打開砥砥的 LINE，並帶入你的健檢結果，按「傳送」砥砥才會收到。</p></div>';
         return h;
@@ -156,6 +195,11 @@
             record(payload(true), true);
             b.href = LINE_MSG(message());
             setTimeout(function () { var c = document.getElementById('cta'); if (c) c.innerHTML = thanks(); }, 300);
+            return;
+          }
+          if (act === 'copy') {
+            copyText(message(), function () { b.textContent = '已複製 ✓'; });
+            if (st.help !== 0) { st.help = 0; record(payload(false)); } // 電腦版：按複製就當作「需要」
             return;
           }
           if (act === 'next') {
